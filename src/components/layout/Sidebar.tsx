@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Plus, 
   MessageSquare, 
@@ -10,7 +10,9 @@ import {
   Zap, 
   X,
   History,
-  Trash2
+  Trash2,
+  Edit2,
+  Check
 } from 'lucide-react';
 import type { NavigationTab, ChatSession } from '../../types';
 
@@ -22,6 +24,8 @@ interface SidebarProps {
   activeSessionId: string | null;
   onSelectSession: (id: string) => void;
   onClearHistory: () => void;
+  onDeleteSession?: (id: string) => void;
+  onRenameSession?: (id: string, newTitle: string) => void;
   isOpenMobile: boolean;
   onCloseMobile: () => void;
 }
@@ -34,9 +38,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
   activeSessionId,
   onSelectSession,
   onClearHistory,
+  onDeleteSession,
+  onRenameSession,
   isOpenMobile,
   onCloseMobile
 }) => {
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState('');
+
   const navItems = [
     { id: 'chat' as NavigationTab, label: 'Chat Assistant', icon: MessageSquare },
     { id: 'subjects' as NavigationTab, label: 'EE Subjects', icon: BookOpen },
@@ -46,10 +55,30 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'settings' as NavigationTab, label: 'Settings', icon: Settings },
   ];
 
-  // Remove any duplicate sessions by title/timestamp if identical mock data exists
   const uniqueSessions = sessions.filter(
     (sess, index, self) => index === self.findIndex((s) => s.id === sess.id)
   );
+
+  const startRename = (id: string, currentTitle: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setEditingId(id);
+    setEditTitle(currentTitle);
+  };
+
+  const handleSaveRename = (id: string, e: React.FormEvent | React.MouseEvent) => {
+    e.stopPropagation();
+    if (editTitle.trim() && onRenameSession) {
+      onRenameSession(id, editTitle.trim());
+    }
+    setEditingId(null);
+  };
+
+  const handleDelete = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onDeleteSession) {
+      onDeleteSession(id);
+    }
+  };
 
   return (
     <>
@@ -162,23 +191,79 @@ export const Sidebar: React.FC<SidebarProps> = ({
             ) : (
               uniqueSessions.map((sess) => {
                 const isSelected = currentTab === 'chat' && activeSessionId === sess.id;
+                const isEditing = editingId === sess.id;
+
+                if (isEditing) {
+                  return (
+                    <div 
+                      key={sess.id}
+                      className="px-2 py-1 bg-white border border-blue-400 rounded-md flex items-center gap-1"
+                    >
+                      <input
+                        type="text"
+                        autoFocus
+                        value={editTitle}
+                        onChange={(e) => setEditTitle(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') handleSaveRename(sess.id, e);
+                          if (e.key === 'Escape') setEditingId(null);
+                        }}
+                        className="w-full text-xs bg-transparent focus:outline-none text-slate-800"
+                      />
+                      <button
+                        onClick={(e) => handleSaveRename(sess.id, e)}
+                        className="text-blue-600 hover:text-blue-800 p-0.5"
+                        title="Save rename"
+                      >
+                        <Check className="w-3 h-3" />
+                      </button>
+                      <button
+                        onClick={() => setEditingId(null)}
+                        className="text-slate-400 hover:text-slate-600 p-0.5"
+                        title="Cancel"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  );
+                }
+
                 return (
-                  <button
+                  <div
                     key={sess.id}
                     onClick={() => {
                       onSelectSession(sess.id);
                       onSelectTab('chat');
                       onCloseMobile();
                     }}
-                    className={`w-full text-left px-2 py-1.5 rounded-md text-xs truncate transition-colors flex items-center gap-2 ${
+                    className={`group w-full text-left px-2 py-1.5 rounded-md text-xs transition-colors flex items-center justify-between cursor-pointer ${
                       isSelected
                         ? 'bg-blue-50 text-blue-700 font-medium'
                         : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                     }`}
                   >
-                    <MessageSquare className="w-3 h-3 shrink-0 opacity-50" />
-                    <span className="truncate">{sess.title}</span>
-                  </button>
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                      <MessageSquare className="w-3 h-3 shrink-0 opacity-50" />
+                      <span className="truncate">{sess.title}</span>
+                    </div>
+
+                    <div className="hidden group-hover:flex items-center gap-1 shrink-0 ml-1">
+                      <button
+                        onClick={(e) => startRename(sess.id, sess.title, e)}
+                        className="text-slate-400 hover:text-slate-700 p-0.5 rounded transition-colors"
+                        title="Rename conversation"
+                      >
+                        <Edit2 className="w-3 h-3" />
+                      </button>
+                      <button
+                        onClick={(e) => handleDelete(sess.id, e)}
+                        className="text-slate-400 hover:text-rose-600 p-0.5 rounded transition-colors"
+                        title="Delete conversation"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
                 );
               })
             )}
@@ -188,7 +273,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Footer / System Info */}
         <div className="p-3 border-t border-slate-200 bg-slate-50">
           <div className="flex items-center justify-between text-[11px] text-slate-500 px-1">
-            <span className="font-mono text-[10px]">v0.1.0</span>
+            <span className="font-mono text-[10px]">v0.2.0-db</span>
             <span className="inline-flex items-center gap-1.5 text-[11px] text-slate-600">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
               AI Offline
