@@ -22,15 +22,15 @@ export const SettingsView: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto bg-slate-50 p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
+    <div className="flex-1 overflow-y-auto bg-white p-4 md:p-6">
+      <div className="max-w-4xl mx-auto space-y-5">
         {/* Banner */}
-        <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs">
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 mb-2">
+        <div className="bg-slate-50/50 border border-slate-200 rounded-lg p-5">
+          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200 mb-2">
             <Settings className="w-3.5 h-3.5" />
             <span>Preferences & Integration</span>
           </div>
-          <h2 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-lg md:text-xl font-bold text-slate-900 tracking-tight">
             Settings & System Status
           </h2>
           <p className="text-sm text-slate-600 mt-1">
@@ -39,7 +39,7 @@ export const SettingsView: React.FC = () => {
         </div>
 
         {/* AI Integration Configuration Section */}
-        <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs space-y-4">
+        <div className="bg-white border border-slate-200 rounded-lg p-5 space-y-4">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
             <KeyRound className="w-4 h-4 text-blue-600" />
             <h3 className="font-bold text-slate-900 text-sm">
@@ -106,7 +106,7 @@ export const SettingsView: React.FC = () => {
         </div>
 
         {/* Engineering Units & Notation Section */}
-        <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs space-y-4">
+        <div className="bg-white border border-slate-200 rounded-lg p-5 space-y-4">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
             <Sliders className="w-4 h-4 text-blue-600" />
             <h3 className="font-bold text-slate-900 text-sm">
@@ -146,7 +146,7 @@ export const SettingsView: React.FC = () => {
         </div>
 
         {/* Data & Reset Section */}
-        <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs flex items-center justify-between">
+        <div className="bg-white border border-slate-200 rounded-lg p-5 flex items-center justify-between">
           <div>
             <h4 className="text-sm font-semibold text-slate-900">Reset Local Application Storage</h4>
             <p className="text-xs text-slate-500 mt-0.5">

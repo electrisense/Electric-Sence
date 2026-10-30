@@ -16,48 +16,49 @@ export const Header: React.FC<HeaderProps> = ({
   const getTabLabel = (tab: NavigationTab) => {
     switch (tab) {
       case 'chat':
-        return activeSessionTitle || 'Electrical Engineering AI Chat';
+        return activeSessionTitle || 'Chat Assistant';
       case 'subjects':
-        return 'Electrical Engineering Curriculum & Concepts';
+        return 'EE Subjects Curriculum';
       case 'tools':
-        return 'Engineering Calculators & Analyzers';
+        return 'Engineering Tools & Calculators';
       case 'study-materials':
-        return 'Academic Study Materials & Formula Sheets';
+        return 'Study Materials & Formula Sheets';
       case 'projects':
-        return 'EEE Project Blueprints & Hardware Assistance';
+        return 'EEE Projects Assistance';
       case 'settings':
-        return 'Application Configuration & Preferences';
+        return 'Settings & Preferences';
       default:
         return 'Electric Sence';
     }
   };
 
   return (
-    <header className="h-14 border-b border-slate-200 bg-white/95 backdrop-blur-xs px-4 lg:px-6 flex items-center justify-between sticky top-0 z-30">
-      <div className="flex items-center gap-3">
+    <header className="h-14 border-b border-slate-200 bg-white px-4 lg:px-6 flex items-center justify-between sticky top-0 z-30">
+      <div className="flex items-center gap-3 min-w-0">
         <button
           onClick={onOpenMobileMenu}
-          className="lg:hidden p-2 rounded-md text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+          className="lg:hidden p-1.5 rounded-md text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-colors"
           aria-label="Open navigation menu"
         >
           <Menu className="w-5 h-5" />
         </button>
         
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 hidden sm:inline-block">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-xs font-semibold uppercase tracking-wider text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 hidden sm:inline-block shrink-0">
             Electric Sence
           </span>
           <span className="text-slate-300 hidden sm:inline-block">/</span>
-          <h1 className="text-sm font-semibold text-slate-800 truncate max-w-xs md:max-w-md">
+          <h1 className="text-sm font-semibold text-slate-900 truncate">
             {getTabLabel(currentTab)}
           </h1>
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
-        <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-100 text-slate-600 text-xs font-mono border border-slate-200">
-          <Zap className="w-3.5 h-3.5 text-blue-600" />
-          <span>Department of EEE</span>
+      <div className="flex items-center gap-2.5 shrink-0">
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-50 text-slate-600 text-xs font-mono border border-slate-200">
+          <Zap className="w-3 h-3 text-blue-600" />
+          <span className="hidden sm:inline">Department of EEE</span>
+          <span className="sm:hidden">EEE</span>
         </div>
       </div>
     </header>

@@ -14,12 +14,15 @@ export function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Initial demo sessions or loaded from localStorage
+  // Load existing sessions from localStorage and remove duplicates
   const [sessions, setSessions] = useState<ChatSession[]>(() => {
     try {
       const saved = localStorage.getItem('electric_sence_sessions');
       if (saved) {
-        return JSON.parse(saved);
+        const parsed: ChatSession[] = JSON.parse(saved);
+        return parsed.filter(
+          (item, idx, arr) => idx === arr.findIndex((s) => s.id === item.id)
+        );
       }
     } catch (e) {
       console.error('Failed to load sessions from storage', e);
@@ -125,7 +128,7 @@ export function App() {
   };
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-slate-50 text-slate-900 font-sans">
+    <div className="flex h-screen w-screen overflow-hidden bg-white text-slate-900 font-sans">
       {/* Sidebar Navigation */}
       <Sidebar
         currentTab={currentTab}
@@ -140,7 +143,7 @@ export function App() {
       />
 
       {/* Main Content Pane */}
-      <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden bg-white">
         <Header
           currentTab={currentTab}
           onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
@@ -148,7 +151,7 @@ export function App() {
         />
 
         {/* View Switcher */}
-        <main className="flex-1 flex flex-col min-h-0 relative">
+        <main className="flex-1 flex flex-col min-h-0 relative bg-white overflow-hidden">
           {currentTab === 'chat' && (
             <ChatInterface
               messages={messages}

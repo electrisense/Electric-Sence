@@ -28,15 +28,15 @@ export const StudyMaterialsView: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto bg-slate-50 p-4 md:p-8">
-      <div className="max-w-5xl mx-auto space-y-6">
+    <div className="flex-1 overflow-y-auto bg-white p-4 md:p-6">
+      <div className="max-w-5xl mx-auto space-y-5">
         {/* Banner */}
-        <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs">
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 mb-2">
+        <div className="bg-slate-50/50 border border-slate-200 rounded-lg p-5">
+          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200 mb-2">
             <FileText className="w-3.5 h-3.5" />
             <span>Academic Library</span>
           </div>
-          <h2 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-lg md:text-xl font-bold text-slate-900 tracking-tight">
             Study Materials & Formula Sheets
           </h2>
           <p className="text-sm text-slate-600 mt-1">
@@ -44,7 +44,7 @@ export const StudyMaterialsView: React.FC = () => {
           </p>
 
           {/* Filter Pills */}
-          <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-slate-100">
+          <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-slate-200">
             {['all', 'Formula Sheet', 'Lecture Notes', 'Exam Guide', 'Lab Manual'].map((type) => (
               <button
                 key={type}
@@ -52,7 +52,7 @@ export const StudyMaterialsView: React.FC = () => {
                 className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
                   filterType === type
                     ? 'bg-blue-600 text-white shadow-2xs'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
                 }`}
               >
                 {type === 'all' ? 'All Resources' : type}
@@ -62,13 +62,13 @@ export const StudyMaterialsView: React.FC = () => {
         </div>
 
         {/* Materials List */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
           {filteredMaterials.map((mat) => {
             const hasDownloaded = downloadedIds.includes(mat.id);
             return (
               <div
                 key={mat.id}
-                className="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs flex flex-col justify-between hover:border-slate-300 transition-all"
+                className="bg-white border border-slate-200 rounded-lg p-4 flex flex-col justify-between hover:border-slate-300 transition-all"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">

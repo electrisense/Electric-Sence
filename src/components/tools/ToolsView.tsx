@@ -96,11 +96,11 @@ export const ToolsView: React.FC = () => {
   const turnsRatio = np > 0 ? (np / ns).toFixed(2) : '0';
 
   return (
-    <div className="flex-1 overflow-y-auto bg-slate-50 p-4 md:p-8">
-      <div className="max-w-5xl mx-auto space-y-6">
+    <div className="flex-1 overflow-y-auto bg-white p-4 md:p-6">
+      <div className="max-w-5xl mx-auto space-y-5">
         {/* Header */}
-        <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs">
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 mb-2">
+        <div className="bg-slate-50/50 border border-slate-200 rounded-lg p-5">
+          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200 mb-2">
             <Calculator className="w-3.5 h-3.5" />
             <span>Interactive Calculators</span>
           </div>
@@ -165,7 +165,7 @@ export const ToolsView: React.FC = () => {
 
         {/* Tool #1: Ohm's Law */}
         {activeTool === 'ohms' && (
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs">
+          <div className="bg-white border border-slate-200 rounded-lg p-5">
             <h3 className="text-base font-bold text-slate-900 mb-1">Ohm's Law & Power Calculator</h3>
             <p className="text-xs text-slate-500 mb-5">
               Compute Voltage (V), Current (I), Resistance (R), and Power (P) using fundamental linear DC relationships.
@@ -247,7 +247,7 @@ export const ToolsView: React.FC = () => {
 
         {/* Tool #2: Resistor Color Code */}
         {activeTool === 'resistor' && (
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs space-y-6">
+          <div className="bg-white border border-slate-200 rounded-lg p-5 space-y-5">
             <div>
               <h3 className="text-base font-bold text-slate-900 mb-1">4-Band Resistor Color Code Decoder</h3>
               <p className="text-xs text-slate-500">
@@ -340,7 +340,7 @@ export const ToolsView: React.FC = () => {
 
         {/* Tool #3: RLC Resonance */}
         {activeTool === 'resonance' && (
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs space-y-6">
+          <div className="bg-white border border-slate-200 rounded-lg p-5 space-y-5">
             <div>
               <h3 className="text-base font-bold text-slate-900 mb-1">Series RLC Resonance & Quality Factor</h3>
               <p className="text-xs text-slate-500">
@@ -411,7 +411,7 @@ export const ToolsView: React.FC = () => {
 
         {/* Tool #4: Transformer */}
         {activeTool === 'transformer' && (
-          <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs space-y-6">
+          <div className="bg-white border border-slate-200 rounded-lg p-5 space-y-5">
             <div>
               <h3 className="text-base font-bold text-slate-900 mb-1">Ideal Transformer Turns & Voltage Ratio</h3>
               <p className="text-xs text-slate-500">

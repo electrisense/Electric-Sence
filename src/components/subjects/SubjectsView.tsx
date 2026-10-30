@@ -18,17 +18,17 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({ onAskInChat }) => {
   );
 
   return (
-    <div className="flex-1 overflow-y-auto bg-slate-50 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto space-y-6">
+    <div className="flex-1 overflow-y-auto bg-white p-4 md:p-6">
+      <div className="max-w-6xl mx-auto space-y-5">
         {/* Header Banner */}
-        <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs">
+        <div className="bg-slate-50/50 border border-slate-200 rounded-lg p-5">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 mb-2">
+              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 mb-2">
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>Undergraduate Curriculum</span>
               </div>
-              <h2 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">
+              <h2 className="text-lg md:text-xl font-bold text-slate-900 tracking-tight">
                 Electrical Engineering Subjects
               </h2>
               <p className="text-sm text-slate-600 mt-1">
@@ -60,9 +60,9 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({ onAskInChat }) => {
                 <button
                   key={sub.id}
                   onClick={() => setSelectedSubject(sub)}
-                  className={`w-full text-left p-4 rounded-xl border transition-all flex items-center justify-between ${
+                  className={`w-full text-left p-3.5 rounded-lg border transition-all flex items-center justify-between ${
                     isSelected
-                      ? 'bg-white border-blue-600 shadow-xs ring-1 ring-blue-600'
+                      ? 'bg-white border-blue-600 shadow-2xs ring-1 ring-blue-600'
                       : 'bg-white border-slate-200 hover:border-slate-300'
                   }`}
                 >
@@ -85,7 +85,7 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({ onAskInChat }) => {
 
           {/* Detailed Syllabus Card */}
           <div className="lg:col-span-7">
-            <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs space-y-6">
+            <div className="bg-white border border-slate-200 rounded-lg p-5 space-y-5">
               <div className="border-b border-slate-100 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <span className="text-xs font-mono font-bold text-blue-600 uppercase">

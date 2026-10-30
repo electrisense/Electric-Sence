@@ -1,78 +1,88 @@
 import React from 'react';
-import { Cpu, Zap, Activity, Wrench } from 'lucide-react';
+import { Cpu, Zap, Activity, Wrench, ArrowUpRight } from 'lucide-react';
 
 interface WelcomeScreenProps {
   onSelectPrompt: (prompt: string) => void;
 }
 
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSelectPrompt }) => {
-  const suggestions = [
+  const suggestionCards = [
     {
-      text: 'Explain electrical machines.',
-      category: 'Core Machines',
-      icon: Cpu
+      title: 'Electrical Machines',
+      subtitle: 'Transformers, induction motors, alternators & DC machines',
+      prompt: 'Explain the working principles, equivalent circuits, and characteristics of electrical machines.',
+      icon: Cpu,
     },
     {
-      text: 'Solve a power system numerical.',
-      category: 'Transmission & Faults',
-      icon: Zap
+      title: 'Power Systems',
+      subtitle: 'Transmission line modeling, per-unit analysis & symmetrical faults',
+      prompt: 'Solve a power system numerical, calculate transmission line parameters, or analyze faults.',
+      icon: Zap,
     },
     {
-      text: 'Understand electrical circuit analysis.',
-      category: 'Network Theorems',
-      icon: Activity
+      title: 'Circuit Analysis',
+      subtitle: 'Network theorems, AC steady-state phasors & RLC transients',
+      prompt: 'Explain circuit analysis methods, network theorems, and AC transient response.',
+      icon: Activity,
     },
     {
-      text: 'Help me with an EEE project.',
-      category: 'Hardware & Capstone',
-      icon: Wrench
-    }
+      title: 'Electrical Projects',
+      subtitle: 'Hardware blueprints, schematic guidance & component sizing',
+      prompt: 'Help me design an EEE project with component selection, schematics, and simulation.',
+      icon: Wrench,
+    },
   ];
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 md:py-16 text-center">
-      {/* Icon Badge */}
-      <div className="w-12 h-12 rounded-lg bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center mx-auto mb-5 shadow-2xs">
-        <Zap className="w-6 h-6" />
+    <div className="max-w-3xl mx-auto px-4 py-8 md:py-14 text-center">
+      {/* Brand Icon Badge */}
+      <div className="w-11 h-11 rounded-lg bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center mx-auto mb-4">
+        <Zap className="w-5 h-5" strokeWidth={2} />
       </div>
 
-      {/* Heading */}
-      <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mb-3">
+      {/* Main Heading */}
+      <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 tracking-tight mb-2">
         What are you working on today?
       </h2>
 
       {/* Description */}
-      <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-lg mx-auto mb-10">
+      <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-xl mx-auto mb-8">
         Explore electrical concepts, solve engineering problems, and work on your next project.
       </p>
 
-      {/* Suggested Questions Grid */}
+      {/* Four Clean Suggestion Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-        {suggestions.map((item, idx) => {
-          const Icon = item.icon;
+        {suggestionCards.map((card, idx) => {
+          const Icon = card.icon;
           return (
             <button
               key={idx}
-              onClick={() => onSelectPrompt(item.text)}
-              className="group p-4 rounded-lg bg-white border border-slate-200 hover:border-blue-400 hover:shadow-xs transition-all text-left flex flex-col justify-between"
+              onClick={() => onSelectPrompt(card.prompt)}
+              className="group p-4 rounded-lg bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50/70 transition-colors text-left flex flex-col justify-between"
             >
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 group-hover:text-blue-600 transition-colors">
-                  {item.category}
-                </span>
-                <Icon className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors" />
+              <div className="flex items-center justify-between mb-2.5">
+                <div className="w-7 h-7 rounded-md bg-slate-100 group-hover:bg-blue-50 text-slate-600 group-hover:text-blue-600 flex items-center justify-center transition-colors">
+                  <Icon className="w-4 h-4" strokeWidth={1.8} />
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-slate-500 transition-colors" />
               </div>
-              <p className="text-sm font-medium text-slate-800 group-hover:text-blue-900 leading-snug">
-                {item.text}
-              </p>
+
+              <div>
+                <h3 className="text-sm font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
+                  {card.title}
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 leading-normal line-clamp-2">
+                  {card.subtitle}
+                </p>
+              </div>
             </button>
           );
         })}
       </div>
 
-      {/* Honest AI Status Note */}
-      <div className="mt-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 text-xs font-mono">
-        <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+      {/* Development Status Indicator */}
+      <div className="mt-8 inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-100 border border-slate-200 text-slate-500 text-xs font-mono">
+        <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
         <span>Development Mode: AI reasoning engine integration is offline.</span>
       </div>
     </div>
