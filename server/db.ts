@@ -2,13 +2,16 @@ import { DatabaseSync } from 'node:sqlite';
 import fs from 'node:fs';
 import path from 'node:path';
 
-// Define DB directory and path
-const DATA_DIR = path.resolve(process.cwd(), 'server', 'data');
+// Define DB directory and path with persistent storage support
+export const DATA_DIR = process.env.DATA_DIR
+  ? path.resolve(process.env.DATA_DIR)
+  : path.resolve(process.cwd(), 'server', 'data');
+
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
-export const DB_PATH = path.join(DATA_DIR, 'electric_sence.db');
+export const DB_PATH = process.env.DB_PATH || path.join(DATA_DIR, 'electric_sence.db');
 
 export const db = new DatabaseSync(DB_PATH);
 

@@ -25,3 +25,14 @@ dist-ssr
 
 # Database
 server/data/*.db*
+server/data/backups/*
+!server/data/backups/.gitkeep
+
+# Uploaded documents
+server/uploads/*
+!server/uploads/.gitkeep
+
+# Environment files (API keys - never commit these)
+.env
+.env.local
+.env.production

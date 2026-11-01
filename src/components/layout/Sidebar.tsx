@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { 
   Plus, 
   MessageSquare, 
+  GraduationCap,
+  Database,
+  Shield,
   BookOpen, 
   Calculator, 
   FileText, 
@@ -28,6 +31,7 @@ interface SidebarProps {
   onRenameSession?: (id: string, newTitle: string) => void;
   isOpenMobile: boolean;
   onCloseMobile: () => void;
+  aiStatus?: 'checking' | 'online' | 'offline' | 'unconfigured';
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -41,16 +45,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onDeleteSession,
   onRenameSession,
   isOpenMobile,
-  onCloseMobile
+  onCloseMobile,
+  aiStatus = 'offline'
 }) => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState('');
 
   const navItems = [
     { id: 'chat' as NavigationTab, label: 'Chat Assistant', icon: MessageSquare },
+    { id: 'lms' as NavigationTab, label: 'LMS Courses', icon: GraduationCap },
     { id: 'subjects' as NavigationTab, label: 'EE Subjects', icon: BookOpen },
-    { id: 'tools' as NavigationTab, label: 'Engineering Tools', icon: Calculator },
     { id: 'study-materials' as NavigationTab, label: 'Study Materials', icon: FileText },
+    { id: 'admin-docs' as NavigationTab, label: 'Document Admin', icon: Shield },
+    { id: 'rag-docs' as NavigationTab, label: 'RAG Knowledge', icon: Database },
+    { id: 'tools' as NavigationTab, label: 'Engineering Tools', icon: Calculator },
     { id: 'projects' as NavigationTab, label: 'My Projects', icon: FolderGit2 },
     { id: 'settings' as NavigationTab, label: 'Settings', icon: Settings },
   ];
@@ -275,8 +283,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="flex items-center justify-between text-[11px] text-slate-500 px-1">
             <span className="font-mono text-[10px]">v0.2.0-db</span>
             <span className="inline-flex items-center gap-1.5 text-[11px] text-slate-600">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-              AI Offline
+              <span className={`w-1.5 h-1.5 rounded-full ${
+                aiStatus === 'online' ? 'bg-emerald-500' :
+                aiStatus === 'unconfigured' ? 'bg-amber-500' :
+                aiStatus === 'checking' ? 'bg-slate-400 animate-pulse' :
+                'bg-rose-500'
+              }`} />
+              {aiStatus === 'online' ? 'AI Online' :
+               aiStatus === 'unconfigured' ? 'API Key Missing' :
+               aiStatus === 'checking' ? 'Checking AI...' :
+               'AI Offline'}
             </span>
           </div>
         </div>

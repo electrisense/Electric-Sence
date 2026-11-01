@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { ELECTRICAL_SUBJECTS } from '../../data/subjectsData';
 import type { ElectricalSubject } from '../../types';
-import { BookOpen, CheckCircle2, ChevronRight, MessageSquare, Search } from 'lucide-react';
+import { BookOpen, CheckCircle2, ChevronRight, MessageSquare, Search, GraduationCap } from 'lucide-react';
 
 interface SubjectsViewProps {
-  onAskInChat: (prompt: string) => void;
+  onAskInChat: (prompt: string, subject?: string, courseId?: string) => void;
+  onOpenCourse?: (courseId: string) => void;
 }
 
-export const SubjectsView: React.FC<SubjectsViewProps> = ({ onAskInChat }) => {
+export const SubjectsView: React.FC<SubjectsViewProps> = ({ onAskInChat, onOpenCourse }) => {
   const [selectedSubject, setSelectedSubject] = useState<ElectricalSubject>(ELECTRICAL_SUBJECTS[0]);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -95,13 +96,24 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({ onAskInChat }) => {
                     {selectedSubject.title}
                   </h3>
                 </div>
-                <button
-                  onClick={() => onAskInChat(`Explain key concepts and derivations for ${selectedSubject.title} (${selectedSubject.code})`)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 text-xs font-semibold transition-colors self-start sm:self-auto"
-                >
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span>Discuss in Chat</span>
-                </button>
+                <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
+                  {selectedSubject.courseId && onOpenCourse && (
+                    <button
+                      onClick={() => onOpenCourse(selectedSubject.courseId!)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 text-xs font-semibold transition-colors"
+                    >
+                      <GraduationCap className="w-3.5 h-3.5" />
+                      <span>Open LMS Course</span>
+                    </button>
+                  )}
+                  <button
+                    onClick={() => onAskInChat(`Explain key concepts and derivations for ${selectedSubject.title} (${selectedSubject.code})`, selectedSubject.title, selectedSubject.courseId)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 text-xs font-semibold transition-colors"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    <span>Discuss in Chat</span>
+                  </button>
+                </div>
               </div>
 
               {/* Description */}

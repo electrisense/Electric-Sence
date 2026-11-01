@@ -6,17 +6,25 @@ interface HeaderProps {
   currentTab: NavigationTab;
   onOpenMobileMenu: () => void;
   activeSessionTitle?: string;
+  aiStatusBadge?: React.ReactNode;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   currentTab,
   onOpenMobileMenu,
-  activeSessionTitle
+  activeSessionTitle,
+  aiStatusBadge,
 }) => {
   const getTabLabel = (tab: NavigationTab) => {
     switch (tab) {
       case 'chat':
         return activeSessionTitle || 'Chat Assistant';
+      case 'lms':
+        return 'EEE Learning Management System (LMS)';
+      case 'rag-docs':
+        return 'RAG Knowledge Base & Reference Repository';
+      case 'admin-docs':
+        return 'Document Management & Vector Ingestion (Admin)';
       case 'subjects':
         return 'EE Subjects Curriculum';
       case 'tools':
@@ -55,6 +63,10 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       <div className="flex items-center gap-2.5 shrink-0">
+        {/* Live AI Status Badge */}
+        {aiStatusBadge}
+
+        {/* Department Tag */}
         <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-50 text-slate-600 text-xs font-mono border border-slate-200">
           <Zap className="w-3 h-3 text-blue-600" />
           <span className="hidden sm:inline">Department of EEE</span>

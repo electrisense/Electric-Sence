@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send } from 'lucide-react';
+import { Send, Database } from 'lucide-react';
 
 interface ChatInputProps {
   onSendMessage: (text: string) => void;
@@ -76,11 +76,16 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isLoading }
         </div>
 
         <div className="flex items-center justify-between mt-1.5 px-0.5 text-[11px] text-slate-400">
-          <span>
-            Press <kbd className="px-1 py-0.2 rounded bg-slate-100 text-slate-600 border border-slate-200 font-mono text-[10px]">Enter</kbd> to send, <kbd className="px-1 py-0.2 rounded bg-slate-100 text-slate-600 border border-slate-200 font-mono text-[10px]">Shift + Enter</kbd> for new line
+          <span className="flex items-center gap-1.5 flex-wrap">
+            <span className="inline-flex items-center gap-1 text-[10px] text-indigo-700 bg-indigo-50 border border-indigo-200 px-1.5 py-0.5 rounded font-medium">
+              <Database className="w-2.5 h-2.5 text-indigo-600" /> RAG Knowledge Retrieval Active
+            </span>
+            <span className="hidden sm:inline">
+              · Press <kbd className="px-1 py-0.2 rounded bg-slate-100 text-slate-600 border border-slate-200 font-mono text-[10px]">Enter</kbd> to send
+            </span>
           </span>
           <span className="hidden sm:inline font-medium text-slate-400">
-            Electric Sence
+            Electric Sence AI
           </span>
         </div>
       </div>
